@@ -8,7 +8,8 @@
 
     <div class="error" v-if="error">{{ error }}</div>
 
-    <button>Login</button>
+    <button v-if="isPending" disabled>Loading</button>
+    <button v-else>Login</button>
   </form>
 </template>
 
@@ -18,7 +19,7 @@ import useLogin from '@/composables/useLogin';
 
 const email = ref('');
 const password = ref('');
-const { error, login } = useLogin();
+const { error, login, isPending } = useLogin();
 
 const handleLogin = async () => {
   const response = await login(email.value, password.value);

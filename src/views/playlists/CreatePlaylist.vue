@@ -11,8 +11,8 @@
     ></textarea>
 
     <label for="file-upload">Upload playlist cover image</label>
-    <input id="file-upload" type="file" />
-    <div class="error"></div>
+    <input id="file-upload" type="file" @change="handleFileChange" />
+    <div v-if="fileError" class="error">{{ fileError }}</div>
 
     <button>Create</button>
   </form>
@@ -23,9 +23,25 @@ import { ref } from 'vue';
 
 const title = ref('');
 const description = ref('');
+const file = ref(null);
+const fileError = ref(null);
+const types = ['image/png', 'image/jpeg']; //allowed file types
 
 const handleCreateList = () => {
-  console.log(title.value, description.value);
+  if (file.value) {
+    console.log(title.value, description.value, file.value);
+  }
+};
+
+const handleFileChange = (event) => {
+  const selected = event.target.files[0];
+  if (selected && types.includes(selected.type)) {
+    file.value = selected;
+    fileError.value = null;
+  } else {
+    file.value = null;
+    fileError.value = 'Please select an image file (png or jpg)';
+  }
 };
 </script>
 

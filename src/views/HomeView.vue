@@ -1,11 +1,10 @@
 <template>
+  <Navbar />
   <div class="home">
     <p>Homepage</p>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'HomeView',
-};
+<script setup>
+import Navbar from '@/components/Navbar.vue';
 </script>
